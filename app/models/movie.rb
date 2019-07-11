@@ -1,4 +1,4 @@
-class Movie < MoviesRecord
+class Movie < ApplicationRecord
   include ReadOnly
 
   self.primary_key = 'movieId'

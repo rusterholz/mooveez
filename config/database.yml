@@ -3,39 +3,21 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
-# We do not use the primary database, but Rails will choke on boot if
-# its configuration is missing, so we retain sections for development,
-# test, and production modes:
-ignore: &ignore
-  <<: *default
-  database: /dev/null
-
-development:
-  <<: *ignore
-
-test:
-  <<: *ignore
-
-production:
-  <<: *ignore
-
-# The twin databases managed by Multiverse are configured here. Normally,
-# different database files are used for development, test, and production,
-# but since our databases are read-only, we can use the same file for
-# all three modes:
+# Our movies.db file is our primary database:
 movies: &movies
   <<: *default
   database: db/movies.db
 
-movies_development:
+development:
   <<: *movies
 
-movies_test:
+test:
   <<: *movies
 
-movies_production:
+production:
   <<: *movies
 
+# The separate database for ratings is configured here:
 ratings: &ratings
   <<: *default
   database: db/ratings.db
