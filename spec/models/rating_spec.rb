@@ -1,5 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe Rating, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Rating do
+  it_behaves_like 'read-only'
+
+  it do
+    should belong_to(:movie).with_foreign_key('movieId').inverse_of(:ratings)
+  end
 end
