@@ -6,7 +6,7 @@ default: &default
 # Our movies.db file is our primary database:
 movies: &movies
   <<: *default
-  database: db/movies.db
+  database: <%= ENV.fetch('DATA_PATH') { 'db' } %>/movies.db
 
 development:
   <<: *movies
@@ -20,7 +20,7 @@ production:
 # The separate database for ratings is configured here:
 ratings: &ratings
   <<: *default
-  database: db/ratings.db
+  database: <%= ENV.fetch('DATA_PATH') { 'db' } %>/ratings.db
 
 ratings_development:
   <<: *ratings

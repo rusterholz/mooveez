@@ -1,4 +1,5 @@
 json.array! @movies do |movie|
+  json.id           movie.movieId
   json.imdb_id      movie.imdbId
   json.title        movie.title
   json.genres       decode_json(movie.genres), 'id', 'name'

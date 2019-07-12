@@ -4,6 +4,7 @@ RSpec.describe MoviesController do
   describe 'GET #show' do
     let :pattern do
       {
+        id: Integer,
         imdb_id: String,
         title: String,
         description: String,
@@ -38,6 +39,7 @@ RSpec.describe MoviesController do
     let :pattern do
       [
         {
+          id: Integer,
           imdb_id: String,
           title: String,
           genres: [
@@ -70,8 +72,19 @@ RSpec.describe MoviesController do
       end
     end
 
+    it 'provides an alternate route for filtering by year' do
+      get movies_by_year_path(1999)
+
+      expect(response).to have_http_status(:success)
+      expect(response.body).to match_json_expression(pattern)
+
+      JSON.parse(response.body).each do |item|
+        expect(item['release_date'][0..3]).to eq '1999'
+      end
+    end
+
     it 'allows filtering by genre name' do
-      get movies_path(genre: 'Fantasy')
+      get movies_path(genre: 'fantasy')
 
       expect(response).to have_http_status(:success)
       expect(response.body).to match_json_expression(pattern)
@@ -81,6 +94,17 @@ RSpec.describe MoviesController do
         expect(genres).to include('Fantasy')
       end
     end
-  end
 
+    it 'provides an alternate route for filtering by genre' do
+      get movies_by_genre_path('comedy')
+
+      expect(response).to have_http_status(:success)
+      expect(response.body).to match_json_expression(pattern)
+
+      JSON.parse(response.body).each do |item|
+        genres = item['genres'].map { |g| g['name'] }
+        expect(genres).to include('Comedy')
+      end
+    end
+  end
 end

@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
       scope = scope.where('releaseDate LIKE ?', "#{year}-%")
     end
     if genre = index_params[:genre]
-      scope = scope.where('UPPER(genres) LIKE ?', "%\"#{genre.upcase}\"%")
+      scope = scope.where('UPPER(genres) LIKE ?', "%#{genre.upcase}%")
     end
     scope
   end

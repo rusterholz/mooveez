@@ -1,3 +1,4 @@
+json.id                   @movie.movieId
 json.imdb_id              @movie.imdbId
 json.title                @movie.title
 json.description          @movie.overview
