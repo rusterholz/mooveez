@@ -9,7 +9,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jbuilder', '~> 2.5'
 gem 'kaminari'
 gem 'multiverse'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'sqlite3'
 
 group :development, :test do
